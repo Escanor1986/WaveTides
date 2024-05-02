@@ -1,0 +1,28 @@
+/* :root {
+ --primary: "#c7ecee", 
+ --secondary: "#30336b",
+ --button: "#22a6b3", 
+--accent: "#6ab04c", 
+        --background: "#130f40", 
+}
+
+.perso-bg {
+ background-color: var(--background);
+}
+    
+
+.text-primary {
+color: var(--primary);
+}
+
+.text-secondary {
+color: var(--secondary);
+}
+    
+.button-bg {
+background-color: var(--button);
+}
+
+.accent-bg {
+ background-color: var(--accent);
+} */

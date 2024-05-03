@@ -1,13 +1,13 @@
+require("dotenv").config();
+
 const mongoose = require("mongoose");
 
-// Connection à MongoDB
+// Connection à MongoDB en utilisant la variable d'environnement MONGODB_URL
 mongoose
-  .connect(
-    "mongodb+srv://Escanor:JokasTb9SnWKPBDB@cluster0.lsuxpsu.mongodb.net/waver?retryWrites=true&w=majority&appName=Cluster0"
-  )
+  .connect(process.env.MONGODB_URL)
   .then(() => {
     console.log(`Connection MongoDB ok !`);
   })
-  .catch(Error => {
-    console.log(Error);
+  .catch(error => {
+    console.error(error);
   });

@@ -1,17 +1,9 @@
 const router = require("express").Router();
-const api = require("./api");
-const Wave = require("../database/models/wave.model");
+const waves = require("./waves");
 
-router.use("/api", api);
-
-router.get("/wave/new", (req, res) => {
-  res.render("waves/wave-form");
-});
-
+router.use("/waves", waves);
 router.get("/", (req, res) => {
-  Wave.find({})
-    .exec()
-    .then(waves => res.render("waves/wave-list", { waves }));
+  res.redirect("/waves");
 });
 
 module.exports = router;

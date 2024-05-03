@@ -1,0 +1,18 @@
+extends ../layout.pug
+
+block content
+    div(class="d-flex flex-row content mx-auto")
+    div(class="profile-container") 
+      include ../includes/profile.pug
+    div(class="flex-fill") Form
+      form(class="card" method="post" action="/api/waves")
+        div(class="card-header") Ecrire une wave 
+        div(class="card-body")
+          div(class="form-group")
+            textarea(class="form-control" name="content" placeholder="What's happening ?")
+          if errors 
+            ul(class="mt-2 mb-2")  
+              each error in errors 
+                li(class="text-danger")= error  
+          div(class="w-100 mt-3")
+            input(type="submit" value="Send" class="btn btn-primary ms-auto d-block") 

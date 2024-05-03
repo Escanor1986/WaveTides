@@ -1,0 +1,11 @@
+extends ../layout.pug
+
+block content 
+  div(class="d-flex flex-row content mx-auto")
+    div(class="profile-container") 
+      include ../includes/profile.pug
+    div(class="flex-fill d-flex flex-column") Recents Waves
+      if waves 
+        each wave in waves  
+          div(class="card wave-element")
+           div(class="card-body")= wave.content

@@ -1,28 +1,23 @@
-/* :root {
- --primary: "#c7ecee", 
- --secondary: "#30336b",
- --button: "#22a6b3", 
---accent: "#6ab04c", 
-        --background: "#130f40", 
+.content {
+  max-width: 1000px;
+  margin-top: 20px;
 }
 
-.perso-bg {
- background-color: var(--background);
-}
-    
-
-.text-primary {
-color: var(--primary);
+.profile-container {
+  width: 30%;
+  max-width: 300px;
 }
 
-.text-secondary {
-color: var(--secondary);
-}
-    
-.button-bg {
-background-color: var(--button);
+.btn-wave {
+  border-radius: 30px;
 }
 
-.accent-bg {
- background-color: var(--accent);
-} */
+.wave-element {
+  border-top: 0px;
+}
+
+.wave-element:first-child {
+  margin-top: 10px;
+  border-top: 1px solid #ddd;
+  font-size: 14px;
+}

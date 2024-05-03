@@ -16,6 +16,8 @@ exports.waveNew = (req, res, next) => {
 exports.waveCreate = async (req, res, next) => {
   try {
     const { content } = req.body;
+
+    // Valider les données d'entrée
     const { error } = validateWave(req.body);
     if (error) {
       return res
@@ -23,9 +25,11 @@ exports.waveCreate = async (req, res, next) => {
         .render("waves/wave-form", { errors: [error.details[0].message] });
     }
 
+    // Créer une nouvelle wave
     const newWave = new Wave({ content });
     await newWave.save();
 
+    // Rediriger ou renvoyer une réponse réussie
     res.redirect("/");
   } catch (err) {
     const errors = Object.keys(err.errors).map(key => err.errors[key].message);

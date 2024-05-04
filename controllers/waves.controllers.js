@@ -1,8 +1,9 @@
-const { Wave, validateWave } = require("../database/models/wave.model");
+const { getWaves, createWave } = require("../queries/waves.queries");
+const { validateWave } = require("../database/models/wave.model");
 
 exports.waveList = async (req, res, next) => {
   try {
-    const waves = await Wave.find({}).exec();
+    const waves = await getWaves();
     res.render("waves/wave-list", { waves });
   } catch (e) {
     next(e);
@@ -15,24 +16,12 @@ exports.waveNew = (req, res, next) => {
 
 exports.waveCreate = async (req, res, next) => {
   try {
-    const { content } = req.body;
-
-    // Valider les données d'entrée
     const { error } = validateWave(req.body);
-    if (error) {
-      return res
-        .status(400)
-        .render("waves/wave-form", { errors: [error.details[0].message] });
-    }
+    if (error) throw new Error(error.details[0].message);
 
-    // Créer une nouvelle wave
-    const newWave = new Wave({ content });
-    await newWave.save();
-
-    // Rediriger ou renvoyer une réponse réussie
-    res.redirect("/");
+    await createWave(req.body);
+    res.redirect("/waves");
   } catch (err) {
-    const errors = Object.keys(err.errors).map(key => err.errors[key].message);
-    res.status(400).render("waves/wave-form", { errors });
+    res.status(400).render("waves/wave-form", { errors: [err.message] });
   }
 };

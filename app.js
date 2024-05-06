@@ -22,6 +22,14 @@ app.use(helmet.frameguard({ action: "deny" }));
 app.use(helmet.ieNoOpen());
 app.use(helmet.noSniff());
 
+app.use((req, res, next) => {
+  res.setHeader(
+    "Content-Security-Policy",
+    "script-src 'self' https://unpkg.com/ https://kit.fontawesome.com/"
+  );
+  next();
+});
+
 app.use(morgan("short"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
@@ -29,10 +37,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(routing);
 
 // Gestion des erreurs globales
-app.use((err, req, res, next) => {
+/* app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Une erreur est survenue !");
-});
+}); */
 
 // Gestion des erreurs en développement
 if (process.env.NODE_ENV === "development") {

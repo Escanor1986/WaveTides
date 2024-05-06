@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "autoprefixer": "^10.4.19",
+    "axios": "^1.6.8",
     "dotenv": "^16.4.5",
     "errorhandler": "^1.5.1",
     "express": "^4.19.2",

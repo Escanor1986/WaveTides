@@ -1,11 +1,6 @@
-extends ../layout.pug
-
-block content 
-  div(class="d-flex flex-row content mx-auto")
-    div(class="profile-container") 
-      include ../includes/profile.pug
-    div(class="flex-fill d-flex flex-column") Recents Waves
-      if waves 
-        each wave in waves  
-          div(class="card wave-element")
-           div(class="card-body")= wave.content
+if waves 
+  each wave in waves  
+    div(class="card wave-element")
+      div(class="card-body d-flex flex-row justify-content-between align-items-center")
+        a(class="card-text" href="/waves/edit/" + wave._id)= wave.content
+        button(class="btn btn-danger" waveid=wave._id) Delete

@@ -1,6 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const path = require("path");
+require("dotenv").config();
 const helmet = require("helmet");
 const dotenv = require("dotenv");
 const errorHandler = require("errorhandler");
@@ -10,10 +11,14 @@ require("./database");
 dotenv.config();
 
 const app = express();
+exports.app = app;
+
 const port = process.env.PORT || 3000;
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
+
+require("./config/session.config");
 
 // https://node-js.fr/security/helmet.html
 app.use(helmet());
@@ -36,13 +41,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(routing);
 
-// Gestion des erreurs globales
-/* app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send("Une erreur est survenue !");
-}); */
-
-// Gestion des erreurs en développement
 if (process.env.NODE_ENV === "development") {
   app.use(errorHandler());
 } else {

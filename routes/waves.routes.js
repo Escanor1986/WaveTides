@@ -7,8 +7,9 @@ const {
   waveEdit,
   waveUpdate,
 } = require("../controllers/waves.controllers");
+const { ensureAuthenticated } = require("../config/security.config");
 
-router.get("/", waveList);
+router.get("/", ensureAuthenticated, waveList);
 router.get("/new", waveNew);
 router.post("/", waveCreate);
 router.get("/edit/:waveId", waveEdit);

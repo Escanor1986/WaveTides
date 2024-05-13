@@ -1,7 +1,22 @@
 if waves 
   each wave in waves  
-    div(class="card wave-element")
-      div(class="card-body d-flex flex-row justify-content-between align-items-center")
-        p(class="card-text")= wave.content
-        button(class="btn btn-success" href="/waves/edit/" + wave._id) Edit
-        button(class="btn btn-danger" waveid=wave._id) Delete
+    div(class="card wave-element mb-3")
+      div(class="card-body d-flex justify-content-between align-items-center")
+        p(class="card-text mb-0")= wave.content
+        div(class="d-flex align-items-center")
+          a(class="btn btn-success mx-2" href="/waves/edit/" + wave._id) Edit
+          // Button for trigger the modal
+          button(class="btn btn-danger mx-2 first-delete-button" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal" waveid=wave._id) Delete
+
+// Modal de confirmation de suppression
+div(class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true")
+  div(class="modal-dialog modal-dialog-centered" role="document")
+    div(class="modal-content")
+      div(class="modal-header")
+        h5(class="modal-title" id="deleteModalLabel") Vous êtes sur le point de supprimer une vague
+        button(class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close")
+      div(class="modal-body")
+        p Êtes-vous sûr de vouloir supprimer cette vague ?
+      div(class="modal-footer")
+        button(class="btn btn-secondary" type="button" data-bs-dismiss="modal") Annuler
+        button(class="btn btn-danger" type="button" id="confirmDelete") Supprimer

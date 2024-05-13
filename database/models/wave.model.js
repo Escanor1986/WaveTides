@@ -8,6 +8,7 @@ const waveSchema = schema({
     minlength: [1, "Wave trop courte."],
     required: [true, "Champs requis"],
   },
+  author: { type: schema.Types.ObjectId, ref: "user", required: true },
 });
 
 const Wave = mongoose.model("wave", waveSchema);

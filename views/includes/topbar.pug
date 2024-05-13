@@ -5,9 +5,13 @@ nav(class="navbar navbar-expand-lg navbar-light bg-light")
     span(class="navbar-toggler-icon")
   div(class="collapse navbar-collapse")
     ul(class="navbar-nav ms-auto mx-3")
-      li(class="nav-item active")
-        a(class="btn btn-primary btn-wave me-3" href="/waves/new") Wave
-      li(class="nav-item")
-        a(class="nav-link" href="#") Connexion
-      li(class="nav-item")
-        a(class="nav-link" href="/users/signup/form") Inscription
+      if isAuthenticated
+        li(class="nav-item active")
+          a(class="btn btn-primary btn-tweet me-3" href="/waves/new") Tweet
+        li(class="nav-item active")
+          a(class="nav-link" href="/auth/signout") Déconnexion
+      else
+        li(class="nav-item")
+          a(class="nav-link" href="/auth/signin/form") Connexion
+        li(class="nav-item")
+          a(class="nav-link" href="/users/signup/form") Inscription

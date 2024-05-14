@@ -1,20 +1,17 @@
 nav(class="navbar navbar-expand-lg navbar-light bg-light rounded-5 mt-3 container-fluid")
   a(class="navbar-brand" href="/waves")
     img(width="60" height="60" src="/images/wave1.png" class="ms-3")
-  button(class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation")
+  button(class="navbar-toggler me-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation")
     span(class="navbar-toggler-icon")
-  div(class="collapse navbar-collapse" id="navbarNav")
-    ul(class="nav nav-pills nav-fill gap-2 p-1 small bg-primary rounded-5 shadow-sm ms-auto me-5" id="pillNav2" role="tablist" style="--bs-nav-link-color: var(--bs-white); --bs-nav-pills-link-active-color: var(--bs-primary); --bs-nav-pills-link-active-bg: var(--bs-white);")
+  div(class="collapse navbar-collapse m-2 mx-auto" id="navbarNav")
+    ul(class="nav nav-pills nav-fill gap-2 p-1 small bg-primary rounded-5 shadow-sm" id="pillNav2" role="tablist" style="--bs-nav-link-color: var(--bs-white); --bs-nav-pills-link-active-color: var(--bs-primary); --bs-nav-pills-link-active-bg: var(--bs-white);")
       if isAuthenticated
         li(class="nav-item" role="presentation")
           a(class="nav-link active rounded-5 me-3" href="/waves/new" type="button" role="tab" aria-selected="true") Wave
-        li(class="nav-item 5" role="presentation")
+        li(class="nav-item" role="presentation")
           a(class="nav-link" href="/auth/signout" type="button" role="tab" aria-selected="false") Déconnexion
       else
         li(class="nav-item" role="presentation")
           a(class="nav-link rounded-5" href="/auth/signin/form" type="button" role="tab" aria-selected="false") Connexion
         li(class="nav-item" role="presentation")
           a(class="nav-link rounded-5" href="/users/signup/form" type="button" role="tab" aria-selected="false") Inscription
-
-
-

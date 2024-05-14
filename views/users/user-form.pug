@@ -3,9 +3,8 @@ extends ../layout
 block content
   div(class="d-flex flex-column align-items-center justify-content-center min-vh-100 bg-body-transparent p-4 py-md-5")
     div(class="card modal-content rounded-4 shadow")
-      div(class="card-header modal-header p-5 pb-4 border-bottom-0")
-        h1(class="fw-bold mb-0 fs-2") Inscription
       div(class="card-body modal-body p-5 pt-0")
+        h1(class="fw-bold my-5 fs-2") Inscription
         form(method="post" action="/users/signup")
           div(class="form-floating mb-3")
             input(type="text" class="form-control rounded-3" id="floatingUsername" placeholder="Nom d'utilisateur" name="username")

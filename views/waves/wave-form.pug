@@ -1,18 +1,16 @@
-extends ../layout.pug
+extends ../layout
 
 block content
-    div(class="d-flex flex-row content mx-auto")
-    div(class="profile-container") 
-      include ../includes/profile.pug
-    div(class="flex-fill") Form
-      form(class="card" method="post" action= wave && wave._id ? "/waves/update/" + wave._id : "/waves")
-        div(class="card-header") Ecrire une wave 
-        div(class="card-body")
-          div(class="form-group")
-            textarea(class="form-control" name="content" placeholder="What's happening ?")= wave && wave.content
+  div(class="d-flex flex-column align-items-center justify-content-center min-vh-100 bg-body-transparent p-4 py-md-5")
+    div(class="card modal-content rounded-4 shadow")
+      div(class="card-body modal-body p-5 pt-0")
+        h1(class="fw-bold my-5 fs-2") Ecrire une wave
+        form(method="post" action= wave && wave._id ? "/waves/update/" + wave._id : "/waves")
+          div(class="form-floating mb-3")
+            textarea(class="form-control rounded-3" id="floatingContent" placeholder="What's happening ?" name="content")= wave && wave.content
+            label(for="floatingContent") Contenu de la wave
           if errors
             ul(class="my-2")
               each error in errors
-                li(class="text-danger")= error 
-          div(class="w-100 mt-3")
-            input(type="submit" value="Send" class="btn btn-primary ms-auto d-block") 
+                li(class="text-danger")= error
+          button(type="submit" class="w-100 mb-2 btn btn-lg rounded-3 btn-primary") Envoyer

@@ -27,3 +27,68 @@
   align-items: center;
   justify-content: center;
 }
+
+.wave-element {
+  max-width: 600px;
+  border-radius: 20px;
+  background: linear-gradient(to right, #ffecd2 0%, #e3f2fd 100%);
+}
+
+.wave-element:nth-child(even) {
+  background: linear-gradient(to right, #a1c4fd 0%, #c2e9fb 100%);
+}
+
+.modal-content {
+  border-radius: 15px;
+  background: linear-gradient(to right, #e3f2fd 0%, #fecfef 100%);
+}
+
+.modal-header {
+  background: #e3f2fd;
+  border-bottom: none;
+}
+
+.modal-title {
+  color: white;
+}
+
+.btn-close {
+  filter: invert(1);
+}
+
+.modal-footer {
+  border-top: none;
+}
+
+.btn-danger {
+  background: #f76c6c;
+  border: none;
+}
+
+.btn-secondary {
+  background: #a29bfe;
+  border: none;
+}
+
+.navbar-collapse {
+  justify-content: flex-end;
+}
+
+.navbar-collapse > ul {
+  margin-right: 20px;
+}
+
+/* Centrer le navbar uniquement quand il est en mode collapse et montré */
+@media (max-width: 991.98px) {
+  .navbar-collapse.show {
+    display: flex;
+    justify-content: center;
+  }
+  .navbar-collapse.show ul.nav {
+    width: 100%;
+    margin: 0 20px 0 20px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+  }
+}

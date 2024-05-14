@@ -12,6 +12,8 @@ window.addEventListener("DOMContentLoaded", () => {
     // Retirer la classe "show" du backdrop modal
     const backdrop = document.querySelector(".modal-backdrop");
     backdrop.classList.remove("show");
+    backdrop.classList.remove("fade");
+    backdrop.remove();
   });
 });
 

@@ -5,6 +5,7 @@ require("dotenv").config();
 const helmet = require("helmet");
 const dotenv = require("dotenv");
 const errorHandler = require("errorhandler");
+const util = require("util");
 const routing = require("./routes");
 require("./database");
 
@@ -61,6 +62,14 @@ if (process.env.NODE_ENV === "development") {
   app.use(errorHandler());
 } else {
   app.use((err, req, res, next) => {
+    console.log(
+      util.inspect(err, {
+        compact: true,
+        depth: 5,
+        breakLength: 80,
+        color: true,
+      })
+    );
     const code = err.code || 500;
     res.status(code).json({
       code: code,

@@ -20,3 +20,10 @@
   margin-top: 10px;
   border-top: 1px solid #ddd;
 }
+
+.btn-google,
+.btn-facebook {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

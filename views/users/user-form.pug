@@ -1,22 +1,24 @@
 extends ../layout
 
 block content
-  div(class="d-flex flex-row content justify-content-center mx-auto")
-    form(class="card" method="post" action="/users/signup")
-      div(class="card-header") Inscription
-      div(class="card-body")
-        div(class="mb-3")
-          label Username
-          input(class="form-control" type="text" name="username")
-        div(class="mb-3")
-          label Email
-          input(class="form-control" type="email" name="email")
-        div(class="mb-3")
-          label Password
-          input(class="form-control" type="password" name="password")
-        if errors
-          ul(class="my-2")
-            each error in errors
-              li(class="text-danger")= error
-        div(class="w-100")
-          input(type="submit" value="valider" class="btn btn-primary ms-auto d-block")
+  div(class="d-flex flex-column align-items-center justify-content-center min-vh-100 bg-body-transparent p-4 py-md-5")
+    div(class="card modal-content rounded-4 shadow")
+      div(class="card-header modal-header p-5 pb-4 border-bottom-0")
+        h1(class="fw-bold mb-0 fs-2") Inscription
+      div(class="card-body modal-body p-5 pt-0")
+        form(method="post" action="/users/signup")
+          div(class="form-floating mb-3")
+            input(type="text" class="form-control rounded-3" id="floatingUsername" placeholder="Nom d'utilisateur" name="username")
+            label(for="floatingUsername") Nom d'utilisateur
+          div(class="form-floating mb-3")
+            input(type="email" class="form-control rounded-3" id="floatingEmail" placeholder="name@example.com" name="email")
+            label(for="floatingEmail") Email
+          div(class="form-floating mb-3")
+            input(type="password" class="form-control rounded-3" id="floatingPassword" placeholder="Password" name="password")
+            label(for="floatingPassword") Mot de passe
+          if errors
+            ul(class="my-2")
+              each error in errors
+                li(class="text-danger")= error
+          button(type="submit" class="w-100 mb-2 btn btn-lg rounded-3 btn-primary") S'inscrire
+          small(class="text-body-secondary") En cliquant sur S'inscrire, vous acceptez les termes d'utilisation.

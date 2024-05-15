@@ -1,1 +1,18 @@
-p profile
+script(src="/scripts/profile.js")
+div(class="profile-container bg-white me-3 d-flex flex-column shadow rounded-3")
+    form(class="d-flex flex-row justify-content-center align-items-center mt-3" action="/users/update/image" method="post" enctype="multipart/form-data" id="form-container")
+      input(type="file" name="avatar" class="d-none" id="input-avatar")
+      img(src=currentUser.avatar class="img-fluid" id="image-profile")
+    div(class="d-flex flex-row justify-content-center align-items-center my-3")
+      p= `${ currentUser.username } (${ currentUser.local.email })`
+    div(class="text-center d-flex flex-row justify-content-center align-items-center my-3")
+      div(class="flex-fill")
+        p
+          strong Wave
+          br
+          span(class="text-primary")= waves && waves.length ? waves.length : "-"
+      div(class="flex-fill")
+        p
+          strong Following
+          br
+          span(class="text-primary") -

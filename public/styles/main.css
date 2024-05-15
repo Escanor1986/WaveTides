@@ -101,20 +101,33 @@
   margin-left: 3rem;
 }
 
-/* Ajoutez cette règle pour rendre la container responsive */
-@media (max-width: 768px) {
-  .responsive-container {
-    flex-direction: column;
-    align-items: center;
-  }
+/* Image de profil (Avatar) */
+.img-fluid {
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  border-radius: 50%; /* Pour une image de profil ronde */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19); /* Ombre élégante */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animation douce pour les transformations */
+}
 
-  .profile-container {
-    margin-left: 0;
-    margin-right: 3rem;
-    margin-bottom: 20px; /* Ajoutez un espace entre les divs */
-  }
+.img-fluid:hover {
+  transform: scale(1.1); /* Agrandissement léger au survol */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 12px 40px rgba(0, 0, 0, 0.19); /* Ombre accentuée au survol */
+}
 
-  #wave-list-container {
-    margin: 0 3rem;
+/* Animation d'apparition */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.img-fluid {
+  animation: fadeIn 1s ease-out;
 }

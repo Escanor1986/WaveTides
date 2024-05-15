@@ -1,3 +1,5 @@
+// On Utilise DOMCOntentLoaded pour s'assurer que lorsque l'on trigger nos fonctions, le DOM est déjà chargé
+
 window.addEventListener("DOMContentLoaded", () => {
   bindWave();
 

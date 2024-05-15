@@ -7,7 +7,7 @@ const authLimiter = rateLimit({
 });
 
 exports.ensureAuthenticated = (req, res, next) => {
-  // Limite les tentatives de connexion
+  // Limite les tentatives de connexion (30 / 15 Minutes)
   authLimiter(req, res, () => {
     // vérifie si l'utilisateur est authentifié
     if (req.isAuthenticated()) {

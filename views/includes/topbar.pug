@@ -1,6 +1,6 @@
-nav(class="navbar navbar-expand-lg navbar-light bg-light rounded-5 mt-3 container-fluid")
+nav(class="navbar navbar-expand-lg navbar-light bg-light rounded-5 mt-3 shadow container-fluid")
   a(class="navbar-brand" href="/waves")
-    img(width="60" height="60" src="/images/wave1.png" class="ms-3")
+    img(class="img-fluid" src="/images/wave1.png" class="ms-3")
   button(class="navbar-toggler me-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation")
     span(class="navbar-toggler-icon")
   div(class="collapse navbar-collapse m-2 mx-auto" id="navbarNav")
@@ -8,6 +8,8 @@ nav(class="navbar navbar-expand-lg navbar-light bg-light rounded-5 mt-3 containe
       if isAuthenticated
         li(class="nav-item" role="presentation")
           a(class="nav-link active rounded-5 me-3" href="/waves/new" type="button" role="tab" aria-selected="true") Wave
+        li(class="nav-item" role="presentation")
+          a(class="nav-link rounded-5 me-3" href="/waves" type="button" role="tab" aria-selected="true") Home
         li(class="nav-item" role="presentation")
           a(class="nav-link" href="/auth/signout" type="button" role="tab" aria-selected="false") Déconnexion
       else

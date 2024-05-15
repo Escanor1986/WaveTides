@@ -92,3 +92,29 @@
     justify-content: center;
   }
 }
+
+.profile-container {
+  margin-right: 3rem;
+}
+
+#wave-list-container {
+  margin-left: 3rem;
+}
+
+/* Ajoutez cette règle pour rendre la container responsive */
+@media (max-width: 768px) {
+  .responsive-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-container {
+    margin-left: 0;
+    margin-right: 3rem;
+    margin-bottom: 20px; /* Ajoutez un espace entre les divs */
+  }
+
+  #wave-list-container {
+    margin: 0 3rem;
+  }
+}

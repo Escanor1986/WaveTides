@@ -7,13 +7,12 @@ const {
   waveEdit,
   waveUpdate,
 } = require("../controllers/waves.controllers");
-const { ensureAuthenticated } = require("../config/security.config");
 
-router.get("/", ensureAuthenticated, waveList);
-router.get("/new", ensureAuthenticated, waveNew);
-router.post("/", ensureAuthenticated, waveCreate);
-router.get("/edit/:waveId", ensureAuthenticated, waveEdit);
-router.post("/update/:waveId", ensureAuthenticated, waveUpdate);
-router.delete("/:waveId", ensureAuthenticated, waveDelete);
+router.get("/", waveList);
+router.get("/new", waveNew);
+router.post("/", waveCreate);
+router.get("/edit/:waveId", waveEdit);
+router.post("/update/:waveId", waveUpdate);
+router.delete("/:waveId", waveDelete);
 
 module.exports = router;

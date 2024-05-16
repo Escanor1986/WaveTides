@@ -3,8 +3,12 @@ div(class="profile-container bg-white me-3 d-flex shadow rounded-3")
     form(class="d-flex flex-row justify-content-center align-items-center my-3" action="/users/update/image" method="post" enctype="multipart/form-data" id="form-container")
       input(type="file" name="avatar" class="d-none" id="input-avatar")
       img(src=user.avatar class="avatar img-fluid" id="image-profile")
-    div(class="d-flex profile-category justify-content-center align-items-center my-3")
+    div(class="d-flex profile-category justify-content-evenly align-items-center my-3")
+     span(class="d-flex profile-sub-category")
+      i(class="fa-solid fa-user mb-2")
       p= `${ user.username }` 
+     span(class="d-flex profile-sub-category") 
+      i(class="fa-solid fa-envelope mb-2") 
       p= `(${ user.local.email })`
     div(class="text-center d-flex profile-category justify-content-center align-items-center my-3")
       div(class="flex-fill")

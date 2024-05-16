@@ -3,6 +3,30 @@ body {
   min-width: 450px;
 }
 
+#search-menu-container {
+  position: relative;
+}
+.search-menu {
+  position: absolute;
+  background: white;
+  z-index: 1;
+  top: 20px;
+  left: 0px;
+  width: 300px;
+  min-height: 200px;
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3),
+    0 1px 3px 1px rgba(60, 64, 67, 0.15);
+}
+.search-menu-item {
+  padding: 10px 15px;
+  border-bottom: 1px solid #eee;
+  transition: background 0.2s;
+}
+.search-menu-item:hover {
+  background: #eee;
+  transition: background 0.2s;
+}
+
 .wave-frame {
   max-width: 1000px;
   margin-top: 20px;
@@ -143,6 +167,61 @@ body {
   flex-direction: row;
 }
 
+.profile-sub-category {
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Image de profil (Avatar) */
+.topbar-img {
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  border-radius: 50%; /* Pour une image de profil ronde */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19); /* Ombre élégante */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animation douce pour les transformations */
+}
+
+.topbar-img:hover {
+  transform: scale(1.1); /* Agrandissement léger au survol */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 12px 40px rgba(0, 0, 0, 0.19); /* Ombre accentuée au survol */
+}
+
+#image-profile {
+  min-width: 80px;
+  min-height: 80px;
+  margin: 0 1rem;
+  cursor: pointer;
+  border-radius: 50%; /* Pour une image de profil ronde */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19); /* Ombre élégante */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animation douce pour les transformations */
+}
+
+#image-profile:hover {
+  transform: scale(1.1); /* Agrandissement léger au survol */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 12px 40px rgba(0, 0, 0, 0.19); /* Ombre accentuée au survol */
+}
+
+/* Animation d'apparition */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.topbar-img {
+  animation: fadeIn 1s ease-out;
+}
+
+#image-profile {
+  animation: fadeIn 1s ease-out;
+}
+
 /* mode mobile pour les waves */
 @media (max-width: 768px) {
   .profile-container {
@@ -169,35 +248,10 @@ body {
   .profile-category {
     flex-direction: column;
   }
-}
 
-/* Image de profil (Avatar) */
-.avatar {
-  width: 80px;
-  height: 80px;
-  cursor: pointer;
-  border-radius: 50%; /* Pour une image de profil ronde */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19); /* Ombre élégante */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animation douce pour les transformations */
-}
-
-.avatar:hover {
-  transform: scale(1.1); /* Agrandissement léger au survol */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 12px 40px rgba(0, 0, 0, 0.19); /* Ombre accentuée au survol */
-}
-
-/* Animation d'apparition */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
+  #image-profile {
+    width: 125px;
+    height: 125px;
+    margin: 1rem;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.avatar {
-  animation: fadeIn 1s ease-out;
 }

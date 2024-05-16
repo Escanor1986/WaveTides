@@ -1,11 +1,16 @@
-.content {
+body {
+  max-width: 1500px;
+  min-width: 450px;
+}
+
+.wave-frame {
   max-width: 1000px;
   margin-top: 20px;
 }
 
 .profile-container {
   width: 30%;
-  max-width: 300px;
+  /* max-width: 300px; */
 }
 
 .btn-wave {
@@ -14,6 +19,7 @@
 
 .wave-element {
   border-top: 0px;
+  min-width: 50%;
 }
 
 .wave-element:first-child {
@@ -36,6 +42,32 @@
 
 .wave-element:nth-child(even) {
   background: linear-gradient(to right, #a1c4fd 0%, #c2e9fb 100%);
+}
+
+.card {
+  max-width: 24rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-avatar-container {
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.card-avatar {
+  border-radius: 20px;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 1rem;
 }
 
 .modal-content {
@@ -94,6 +126,7 @@
 }
 
 .profile-container {
+  flex-direction: column;
   margin-right: 3rem;
 }
 
@@ -101,8 +134,45 @@
   margin-left: 3rem;
 }
 
+/* container la wave list et la side bar */
+.wave-frame {
+  flex-direction: row;
+}
+
+.profile-category {
+  flex-direction: row;
+}
+
+/* mode mobile pour les waves */
+@media (max-width: 768px) {
+  .profile-container {
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  .wave-frame {
+    flex-direction: column;
+  }
+
+  .wave-element {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+  }
+
+  #wave-list-container {
+    margin-left: 0;
+  }
+
+  .profile-category {
+    flex-direction: column;
+  }
+}
+
 /* Image de profil (Avatar) */
-.img-fluid {
+.avatar {
   width: 80px;
   height: 80px;
   cursor: pointer;
@@ -111,7 +181,7 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animation douce pour les transformations */
 }
 
-.img-fluid:hover {
+.avatar:hover {
   transform: scale(1.1); /* Agrandissement léger au survol */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 12px 40px rgba(0, 0, 0, 0.19); /* Ombre accentuée au survol */
 }
@@ -128,6 +198,6 @@
   }
 }
 
-.img-fluid {
+.avatar {
   animation: fadeIn 1s ease-out;
 }

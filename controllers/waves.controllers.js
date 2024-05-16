@@ -4,15 +4,18 @@ const {
   createWave,
   deleteWave,
   updateWave,
+  getCurrentUserWavesWithFollowing,
 } = require("../queries/waves.queries");
 
 exports.waveList = async (req, res, next) => {
   try {
-    const waves = await getWaves();
+    const waves = await getCurrentUserWavesWithFollowing(req.user);
     res.render("waves/wave", {
       waves,
       isAuthenticated: req.isAuthenticated(),
       currentUser: req.user,
+      user: req.user,
+      editable: true,
     });
   } catch (e) {
     next(e);
@@ -46,8 +49,12 @@ exports.waveDelete = async (req, res, next) => {
   try {
     const waveId = req.params.waveId;
     await deleteWave(waveId);
-    const waves = await getWaves();
-    res.render("waves/wave-list", { waves });
+    const waves = await getCurrentUserWavesWithFollowing(req.user);
+    res.render("waves/wave-list", {
+      waves,
+      currentUser: req.user,
+      editable: true,
+    });
   } catch (e) {
     next(e);
   }

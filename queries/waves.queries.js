@@ -26,3 +26,13 @@ exports.updateWave = async (waveId, wave) => {
     { runValidators: true }
   );
 };
+
+exports.getCurrentUserWavesWithFollowing = user => {
+  return Wave.find({ author: { $in: [...user.following, user._id] } })
+    .populate("author")
+    .exec();
+};
+
+exports.getUserWavesFromAuthorId = authorId => {
+  return Wave.find({ author: authorId }).populate("author").exec();
+};

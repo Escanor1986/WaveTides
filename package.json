@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=development nodemon app.js",
-    "start:prod": "NODE_ENV=production nodemon app.js"
+    "start": "NODE_ENV=development nodemon server.js",
+    "start:prod": "NODE_ENV=production nodemon server.js"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +16,7 @@
     "bcrypt": "^5.1.1",
     "connect-mongo": "^5.1.0",
     "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "errorhandler": "^1.5.1",
     "express": "^4.19.2",
@@ -30,6 +31,7 @@
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "ws": "^8.17.0"
   }
 }

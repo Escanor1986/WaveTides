@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const schema = mongoose.Schema;
 require("dotenv").config();
 const bcrypt = require("bcrypt");
-const crypto = require("crypto");
 
 const userSchema = schema({
   username: { type: String, required: true, unique: true },
@@ -12,6 +11,7 @@ const userSchema = schema({
     googleId: { type: String },
   },
   avatar: { type: String, default: "/images/wave.png" }, // Photo de profil
+  following: { type: [schema.Types.ObjectId], ref: "user" },
 });
 
 userSchema.statics.hashPassword = password => {

@@ -1,6 +1,7 @@
 const { createUser } = require("../queries/users.queries");
 const path = require("path");
 const multer = require("multer");
+const date = new Date();
 
 const upload = multer({
   storage: multer.diskStorage({
@@ -8,7 +9,10 @@ const upload = multer({
       cb(null, path.join(__dirname, "../public/images/avatars"));
     },
     filename: (req, file, cb) => {
-      cb(null, `${Date.now()}-${file.originalname}`);
+      cb(
+        null,
+        `${date.toDateString().split(" ").join("_")}-${file.originalname}`
+      );
     },
   }),
 });
@@ -48,3 +52,20 @@ exports.uploadImage = [
     }
   },
 ];
+
+exports.userProfile = async (req, res, next) => {
+  try {
+    const username = req.params.username;
+    const user = await findUserPerUsername(username);
+    const waves = await getUserWavesFromAuthorId(user._id);
+    res.render("waves/wave", {
+      waves,
+      isAuthenticated: req.isAuthenticated(),
+      currentUser: req.user,
+      user,
+      editable: false,
+    });
+  } catch (e) {
+    next(e);
+  }
+};

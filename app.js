@@ -2,7 +2,6 @@ const express = require("express");
 const morgan = require("morgan");
 const path = require("path");
 require("dotenv").config();
-const helmet = require("helmet");
 const dotenv = require("dotenv");
 const errorHandler = require("errorhandler");
 const util = require("util");
@@ -14,7 +13,7 @@ dotenv.config();
 const app = express();
 exports.app = app;
 
-const port = process.env.PORT || 3000;
+// const port = process.env.PORT || 3000;
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
@@ -22,35 +21,8 @@ app.set("view engine", "pug");
 require("./config/session.config");
 require("./config/passport.config");
 
-// https://node-js.fr/security/helmet.html
-app.use(helmet());
-app.use(helmet.hidePoweredBy());
-app.use(helmet.frameguard({ action: "deny" }));
-app.use(helmet.ieNoOpen());
-app.use(helmet.noSniff());
-
-// Set Content-Security-Policy
-app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-      "script-src": [
-        "'self'",
-        "https://unpkg.com/",
-        "https://kit.fontawesome.com/",
-        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
-      ],
-    },
-  })
-);
-
-app.use((req, res, next) => {
-  res.setHeader(
-    "Content-Security-Policy",
-    "script-src 'self' https://unpkg.com/ https://kit.fontawesome.com/ https://cdn.jsdelivr.net/npm/"
-  );
-  next();
-});
+const helmetConfig = require("./config/helmet.config");
+app.use(helmetConfig());
 
 app.use(morgan("short"));
 app.use(express.static(path.join(__dirname, "public")));
@@ -78,6 +50,8 @@ if (process.env.NODE_ENV === "development") {
   });
 }
 
-app.listen(port, () => {
-  console.log(`Rendez-vous sur http://localhost:${port}`);
-});
+// app.listen(port, () => {
+// console.log(`Rendez-vous sur http://localhost:${port}`);
+// });
+
+module.exports = app;

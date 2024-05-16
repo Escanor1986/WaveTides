@@ -1,3 +1,14 @@
+/* 
+@import url('variables.css');
+@import url('layout.css');
+@import url('buttons.css');
+@import url('cards.css');
+@import url('modals.css');
+@import url('navbar.css');
+@import url('profile.css');
+@import url('responsive.css');
+ */
+
 body {
   max-width: 1500px;
   min-width: 450px;
@@ -132,6 +143,7 @@ body {
 
 .navbar-collapse > ul {
   margin-right: 20px;
+  margin-left: 20px;
 }
 
 /* Centrer le navbar uniquement quand il est en mode collapse et montré */

@@ -1,4 +1,10 @@
-const { createUser } = require("../queries/users.queries");
+const {
+  createUser,
+  findUserPerUsername,
+  searchUsersPerUsername,
+} = require("../queries/users.queries");
+const { getUserWavesFromAuthorId } = require("../queries/waves.queries");
+const { validationResult } = require("express-validator");
 const path = require("path");
 const multer = require("multer");
 const date = new Date();
@@ -65,6 +71,21 @@ exports.userProfile = async (req, res, next) => {
       user,
       editable: false,
     });
+  } catch (e) {
+    next(e);
+  }
+};
+
+exports.userList = async (req, res, next) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const search = req.query.search;
+    const users = await searchUsersPerUsername(search);
+    res.render("includes/search-menu", { users });
   } catch (e) {
     next(e);
   }

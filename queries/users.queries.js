@@ -31,3 +31,11 @@ exports.findUserPerGoogleId = googleId => {
 exports.findUserPerUsername = username => {
   return User.findOne({ username }).exec();
 };
+
+exports.searchUsersPerUsername = async search => {
+  const sanitizedSearch = search.slice(0, 20);
+
+  return await User.find({
+    username: { $regex: new RegExp(`^${sanitizedSearch}`) },
+  }).exec();
+};

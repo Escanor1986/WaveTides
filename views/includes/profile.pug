@@ -1,6 +1,6 @@
 script(src="/scripts/profile.js")
 div(class="profile-container bg-white me-3 mb-3 d-flex shadow rounded-3")
-    form(class="d-flex flex-row justify-content-center align-items-center my-3" action="/users/update/image" method="post" enctype="multipart/form-data" id="form-container")
+    form(id="form-container" class="d-flex flex-row justify-content-center align-items-center my-3" action="/users/update/image" method="post" enctype="multipart/form-data")
       input(type="file" name="avatar" class="d-none" id="input-avatar")
       img(src=user.avatar class="avatar img-fluid" id="image-profile")
     div(class="d-flex profile-category justify-content-evenly align-items-center my-3")
@@ -9,15 +9,21 @@ div(class="profile-container bg-white me-3 mb-3 d-flex shadow rounded-3")
       p= `${ user.username }` 
      span(class="d-flex profile-sub-category") 
       i(class="fa-solid fa-envelope mb-2") 
-      p= `(${ user.local.email })`
+      p= `(${ user.local.email })` 
     div(class="text-center d-flex profile-category justify-content-center align-items-center my-3")
       div(class="flex-fill")
         p
           strong Wave
           br
-          span(class="text-primary")= waves && waves.length ? waves.length : "-"
+          span(class="text-primary")= waves && waves.filter( t => t.author._id.toString() === user._id.toString()).length
       div(class="flex-fill")
         p
           strong Following
           br
-          span(class="text-primary") -
+          span(class="text-primary")= user.following.length
+    if currentUser._id.toString() !== user._id.toString()
+      div(class="d-flex flex-row justify-content-center align-items-center")
+        if currentUser.following.map( objId => objId.toString() ).includes(user._id.toString())
+          a(class="btn btn-primary btn-unfollow" href="/users/unfollow/" + user._id) unfollow
+        else
+          a(class="btn btn-outline-primary btn-follow" href="/users/follow/" + user._id) follow 

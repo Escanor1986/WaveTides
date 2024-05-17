@@ -51,3 +51,16 @@ exports.googleAuthCb = (req, res, next) => {
     failureRedirect: "/",
   })(req, res, next);
 };
+
+exports.facebookAuth = (req, res, next) => {
+  passport.authenticate("facebook", {
+    scope: ["email", "profile"],
+  })(req, res, next);
+};
+
+exports.facebookAuthCb = (req, res, next) => {
+  passport.authenticate("facebook", {
+    successRedirect: "/waves",
+    failureRedirect: "/",
+  })(req, res, next);
+};

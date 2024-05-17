@@ -9,6 +9,7 @@ const userSchema = schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     googleId: { type: String },
+    facebookId: { type: String },
   },
   avatar: { type: String, default: "/images/wave.png" }, // Photo de profil
   following: { type: [schema.Types.ObjectId], ref: "user" },

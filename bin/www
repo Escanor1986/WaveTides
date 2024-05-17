@@ -1,7 +1,7 @@
 // const https = require("https");
 // const fs = require("fs");
 const http = require("http");
-const app = require("./app");
+const app = require("../app");
 const WebSocket = require("ws");
 
 const normalizePort = val => {

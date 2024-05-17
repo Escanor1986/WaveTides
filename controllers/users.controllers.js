@@ -2,6 +2,9 @@ const {
   createUser,
   findUserPerUsername,
   searchUsersPerUsername,
+  addUserIdToCurrentUserFollowing,
+  removeUserIdToCurrentUserFollowing,
+  findUserPerId,
 } = require("../queries/users.queries");
 const { getUserWavesFromAuthorId } = require("../queries/waves.queries");
 const { validationResult } = require("express-validator");
@@ -86,6 +89,32 @@ exports.userList = async (req, res, next) => {
     const search = req.query.search;
     const users = await searchUsersPerUsername(search);
     res.render("includes/search-menu", { users });
+  } catch (e) {
+    next(e);
+  }
+};
+
+exports.followUser = async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+    const [, user] = await Promise.all([
+      addUserIdToCurrentUserFollowing(req.user, userId),
+      findUserPerId(userId),
+    ]);
+    res.redirect(`/users/${user.username}`);
+  } catch (e) {
+    next(e);
+  }
+};
+
+exports.unFollowUser = async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+    const [, user] = await Promise.all([
+      removeUserIdToCurrentUserFollowing(req.user, userId),
+      findUserPerId(userId),
+    ]);
+    res.redirect(`/users/${user.username}`);
   } catch (e) {
     next(e);
   }

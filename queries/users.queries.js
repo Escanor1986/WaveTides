@@ -28,6 +28,10 @@ exports.findUserPerGoogleId = googleId => {
   return User.findOne({ "local.googleId": googleId }).exec();
 };
 
+exports.findUserPerFacebookId = facebookId => {
+  return User.findOne({ "local.facebookId": facebookId }).exec();
+};
+
 exports.findUserPerUsername = username => {
   return User.findOne({ username }).exec();
 };
@@ -38,4 +42,16 @@ exports.searchUsersPerUsername = async search => {
   return await User.find({
     username: { $regex: new RegExp(`^${sanitizedSearch}`) },
   }).exec();
+};
+
+exports.addUserIdToCurrentUserFollowing = (currentUser, userId) => {
+  currentUser.following = [...currentUser.following, userId];
+  return currentUser.save();
+};
+
+exports.removeUserIdToCurrentUserFollowing = (currentUser, userId) => {
+  currentUser.following = currentUser.following.filter(
+    objId => objId.toString() !== userId
+  );
+  return currentUser.save();
 };

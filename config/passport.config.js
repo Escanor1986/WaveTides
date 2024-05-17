@@ -1,12 +1,15 @@
 const { app } = require("../app");
+const User = require("../database/models/user.model");
 const passport = require("passport");
 require("dotenv").config();
 const LocalStrategy = require("passport-local").Strategy;
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const FacebookStrategy = require("passport-facebook").Strategy;
 const {
   findUserPerEmail,
   findUserPerId,
   findUserPerGoogleId,
+  findUserPerFacebookId,
 } = require("../queries/users.queries");
 
 app.use(passport.initialize());
@@ -63,6 +66,38 @@ passport.use(
       // console.log(util.inspect(profile, { compact: true, depth: 5, breakLength: 80 }));
       try {
         const user = await findUserPerGoogleId(profile.id);
+        if (user) {
+          done(null, user);
+        } else {
+          const newUser = new User({
+            username: profile.displayName,
+            local: {
+              googleId: profile.id,
+              email: profile.emails[0].value,
+            },
+          });
+          const savedUser = await newUser.save();
+          done(null, savedUser);
+        }
+      } catch (e) {
+        done(e);
+      }
+    }
+  )
+);
+
+passport.use(
+  "facebook",
+  new FacebookStrategy(
+    {
+      clientID: "clientId",
+      clientSecret: "clientSecret",
+      callbackURL: "auth/facebook/cb",
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      // console.log(util.inspect(profile, { compact: true, depth: 5, breakLength: 80 }));
+      try {
+        const user = await findUserPerFacebookId(profile.id);
         if (user) {
           done(null, user);
         } else {

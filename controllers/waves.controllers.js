@@ -11,10 +11,26 @@ exports.waveList = async (req, res, next) => {
   try {
     const waves = await getCurrentUserWavesWithFollowing(req.user);
     res.render("waves/wave", {
+      waves, // Waves de l'utilisateur et de ceux qu'il suit
+      isAuthenticated: req.isAuthenticated(), // Statut d'authentification de l'utilisateur
+      currentUser: req.user, // Utilisateur actuellement connecté
+      user: req.user, // Utilisateur actuellement connecté (redondant avec currentUser)
+      editable: true, // Indicateur que les waves peuvent être éditées
+    });
+  } catch (e) {
+    next(e);
+  }
+};
+
+exports.allWaves = async (req, res, next) => {
+  try {
+    const waves = await getWaves();
+    res.render("waves/wave", {
       waves,
       isAuthenticated: req.isAuthenticated(),
       currentUser: req.user,
       user: req.user,
+      editable: false,
       editable: true,
     });
   } catch (e) {

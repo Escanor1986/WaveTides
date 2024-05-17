@@ -11,18 +11,15 @@ if waves
             a(class="btn btn-success mx-2", href=`/waves/edit/${wave._id}`) Edit
             button(class="btn btn-danger mx-2 first-delete-button", type="button", data-bs-toggle="modal", data-bs-target="#deleteModal", waveid=wave._id) Delete
 
-// Modal de confirmation de suppression
-div(class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true")
-  div(class="modal-dialog modal-dialog-centered" role="document")
-    div(class="modal-content rounded-4 shadow" style="background: linear-gradient(to right, #ff9a9e 0%, #fecfef 100%);")
-      div(class="modal-header border-bottom-0" style="background: #ff9a9e;")
-        h5(class="modal-title text-white" id="deleteModalLabel") Vous êtes sur le point de supprimer une vague
-        button(class="btn-close btn-close-white" type="button" data-bs-dismiss="modal" aria-label="Close")
-      div(class="modal-body")
-        p(class="text-dark") Êtes-vous sûr de vouloir supprimer cette vague ?
-      div(class="modal-footer border-top-0")
-        button(class="btn btn-secondary" type="button" data-bs-dismiss="modal") Annuler
-        button(class="btn btn-danger" type="button" id="confirmDelete") Supprimer
-
-
-
+  // Modal de confirmation de suppression
+  div(class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true")
+    div(class="modal-dialog modal-dialog-centered" role="document")
+      div(class="modal-content rounded-4 shadow" style="background: linear-gradient(to right, #ff9a9e 0%, #fecfef 100%);")
+        div(class="modal-header border-bottom-0" style="background: #ff9a9e;")
+          h5(class="modal-title text-white" id="deleteModalLabel") Vous êtes sur le point de supprimer une vague
+          button(class="btn-close btn-close-white" type="button" data-bs-dismiss="modal" aria-label="Close")
+        div(class="modal-body")
+          p(class="text-dark") Êtes-vous sûr de vouloir supprimer cette vague ?
+        div(class="modal-footer border-top-0")
+          button(class="btn btn-secondary" type="button" data-bs-dismiss="modal") Annuler
+          button(class="btn btn-danger" type="button" id="confirmDelete") Supprimer

@@ -1,7 +1,7 @@
 const { Wave } = require("../database/models/wave.model");
 
 exports.getWaves = () => {
-  return Wave.find({}).exec();
+  return Wave.find({}).populate("author").exec();
 };
 
 exports.createWave = async wave => {
@@ -14,7 +14,7 @@ exports.deleteWave = async waveId => {
 };
 
 exports.getWave = async waveId => {
-  return await Wave.findOne({ _id: waveId }).exec();
+  return await Wave.findOne({ _id: waveId }).populate("author").exec();
 };
 
 exports.updateWave = async (waveId, wave) => {

@@ -3,8 +3,8 @@ if waves
     div(class=`card mb-3 ${index % 2 === 0 ? 'ms-auto' : 'me-auto'} wave-element`)
       .card-avatar-container
         img(class="card-avatar img-fluid", src=wave.author.avatar, alt="Avatar")
-      .card-body
         h5(class="card-title")= wave.author.username
+      .card-body
         p(class="card-text")= wave.content
         div(class="d-flex align-items-center")
           if editable && wave.author._id.toString() === currentUser._id.toString()

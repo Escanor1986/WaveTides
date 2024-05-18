@@ -23,6 +23,15 @@ body {
   flex-direction: row;
 }
 
+label {
+  color: #0d1b2a;
+  opacity: 1;
+}
+
+.form-control::placeholder {
+  color: #0d1b2a;
+  opacity: 1;
+}
 /* Style de la wave-list */
 
 .wave-card {

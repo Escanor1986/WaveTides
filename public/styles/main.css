@@ -48,7 +48,6 @@ body {
 }
 
 .col-md-8 {
-  margin-top: 0.5rem;
   text-align: center;
   align-content: space-evenly;
 }
@@ -57,23 +56,41 @@ body {
   text-align: center;
 }
 
-.btn-success {
-  background-color: #1f8a70; /* Vert samouraï */
-  border: none;
+.btn-neon-blue {
+  background-color: #00ccff;
+  border-color: #00ccff;
+  color: #1a1a2e;
 }
 
-.btn-danger {
-  background-color: #ff4c4c; /* Rouge intense */
-  border: none;
+.btn-neon-blue:hover,
+.btn-neon-blue:focus {
+  background-color: #00bfff;
+  border-color: #00bfff;
+  color: #1a1a2e;
+}
+
+.btn-neon-pink {
+  background-color: #ff0066;
+  border-color: #ff0066;
+  color: #1a1a2e;
+}
+
+.btn-neon-pink:hover,
+.btn-neon-pink:focus {
+  background-color: #ff3366;
+  border-color: #ff3366;
+  color: #1a1a2e;
 }
 
 .modal-content {
   border-radius: 15px;
-  background: linear-gradient(to right, #e3f2fd 0%, #fecfef 100%);
+  background: linear-gradient(to left, #292e49, #536976);
+  color: white;
 }
 
 .modal-header {
-  background: #e3f2fd;
+  background: linear-gradient(to left, #292e49, #536976);
+  color: white;
   border-bottom: none;
 }
 
@@ -97,6 +114,10 @@ body {
 .btn-secondary {
   background: #a29bfe;
   border: none;
+}
+
+.navbar-container {
+  border-radius: 2rem;
 }
 
 .navbar-collapse {
@@ -211,6 +232,14 @@ body {
     align-items: center;
     justify-content: space-between;
   }
+
+  .navbar-container {
+    margin-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+  }
 }
 /* Style de la search bar et du search menu */
 
@@ -220,7 +249,8 @@ body {
 
 .search-menu {
   position: absolute;
-  background: white;
+  background: linear-gradient(to right, #292e49, #536976);
+  color: white;
   z-index: 1;
   top: 20px;
   left: 0px;
@@ -235,7 +265,8 @@ body {
   transition: background 0.2s;
 }
 .search-menu-item:hover {
-  background: #eee;
+  background: linear-gradient(to right, #292e49, #536976);
+  color: white;
   transition: background 0.2s;
 }
 

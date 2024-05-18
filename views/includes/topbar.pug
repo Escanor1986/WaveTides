@@ -1,5 +1,5 @@
 script(src="/scripts/search-bar.js")
-nav(class="navbar-container navbar navbar-expand-lg navbar-light bg-dark rounded-5 mt-3 shadow container-fluid")
+nav(class="navbar-container navbar navbar-expand-lg navbar-light bg-dark shadow container-fluid")
   a(class="navbar-brand" href="/waves")
     img(class="topbar-img img-fluid" src="/images/wave1.png" class="ms-3")
   if isAuthenticated   
@@ -18,7 +18,7 @@ nav(class="navbar-container navbar navbar-expand-lg navbar-light bg-dark rounded
         li(class="nav-item" role="presentation")
           a(class="nav-link active bg-dark text-light rounded-5 me-3" href="/auth/signout" type="button" role="tab" aria-selected="false") Déconnexion
         li(class="nav-item" role="presentation")
-          a(class="nav-link active rounded-5" href="/waves/new" type="button" role="tab" aria-selected="true" style="background-color: #1f8a70; border-color: #1f8a70;") Wave  
+          a(class="nav-link btn btn-neon-blue rounded-5" href="/waves/new" type="button" role="tab" aria-selected="true") Wave  
       else
         li(class="nav-item" role="presentation")
           a(class="nav-link active bg-dark text-light rounded-5" href="/auth/signin/form" type="button" role="tab" aria-selected="false") Connexion

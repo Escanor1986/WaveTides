@@ -1,6 +1,7 @@
 const { app } = require("../app");
 const User = require("../database/models/user.model");
 const passport = require("passport");
+const MaskData = require("maskdata");
 require("dotenv").config();
 const LocalStrategy = require("passport-local").Strategy;
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
@@ -28,6 +29,13 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
+const emailMask2Options = {
+  maskWith: "*",
+  unmaskedStartCharactersBeforeAt: 3,
+  unmaskedEndCharactersAfterAt: 2,
+  maskAtTheRate: false,
+};
+
 passport.use(
   "local",
   new LocalStrategy(
@@ -36,16 +44,19 @@ passport.use(
     },
     async (email, password, done) => {
       try {
-        const user = await findUserPerEmail(email);
+        // Masquer l'email avant de chercher l'utilisateur dans la base de données
+        const maskedEmail = MaskData.maskEmail2(email, emailMask2Options);
+        const user = await findUserPerEmail(maskedEmail);
+
         if (user) {
           const match = await user.comparePassword(password);
           if (match) {
             done(null, user);
           } else {
-            done(null, false, { message: "Wrong password" });
+            done(null, false, { message: "Mot de passe incorrect" });
           }
         } else {
-          done(null, false, { message: "User not found" });
+          done(null, false, { message: "Utilisateur non trouvé" });
         }
       } catch (e) {
         done(e);

@@ -1,23 +1,46 @@
 const User = require("../database/models/user.model");
+const passwordSchema = require("../config/password.config");
+const emailValidator = require("email-validator");
+const MaskData = require("maskdata");
+
+const emailMask2Options = {
+  maskWith: "*",
+  unmaskedStartCharactersBeforeAt: 3,
+  unmaskedEndCharactersAfterAt: 2,
+  maskAtTheRate: false,
+};
 
 exports.createUser = async user => {
   try {
+    if (!emailValidator.validate(user.email)) {
+      throw new Error("Invalid email format");
+    }
+
+    const { error: passwordError } = passwordSchema.validate(user.password);
+    if (passwordError) {
+      throw new Error("Password does not meet the required criteria");
+    }
+
     const hashedPassword = await User.hashPassword(user.password);
+    const maskedEmail = MaskData.maskEmail2(user.email, emailMask2Options);
     const newUser = new User({
       username: user.username,
       local: {
-        email: user.email,
+        email: maskedEmail,
         password: hashedPassword,
       },
     });
-    return newUser.save();
+
+    return await newUser.save();
   } catch (e) {
+    console.error("Error creating user:", e.message);
+
     throw e;
   }
 };
 
-exports.findUserPerEmail = email => {
-  return User.findOne({ "local.email": email }).exec();
+exports.findUserPerEmail = maskedEmail => {
+  return User.findOne({ "local.email": maskedEmail }).exec();
 };
 
 exports.findUserPerId = id => {

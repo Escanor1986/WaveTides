@@ -11,7 +11,7 @@
 
 body {
   max-width: 1500px;
-  min-width: 450px;
+  /* min-width: 400px; */
   box-sizing: border-box;
   margin: 2%;
   background-color: #0d1b2a; /* Bleu nuit */
@@ -47,13 +47,14 @@ body {
   max-height: 125px;
 }
 
-.wave-card-title {
+.col-md-8 {
   margin-top: 0.5rem;
   text-align: center;
+  align-content: space-evenly;
 }
 
-.d-flex.align-items-center {
-  justify-content: center;
+.wave-card-body {
+  text-align: center;
 }
 
 .btn-success {
@@ -96,10 +97,6 @@ body {
 .btn-secondary {
   background: #a29bfe;
   border: none;
-}
-
-.navbar-container {
-  background: linear-gradient(to bottom, #292e49, #536976);
 }
 
 .navbar-collapse {
@@ -204,6 +201,17 @@ body {
   }
 }
 
+@media (max-width: 556px) {
+  body {
+    margin: 0;
+  }
+
+  .profile-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
 /* Style de la search bar et du search menu */
 
 #search-menu-container {

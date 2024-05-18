@@ -3,24 +3,24 @@ nav(class="navbar-container navbar navbar-expand-lg navbar-light bg-dark rounded
   a(class="navbar-brand" href="/waves")
     img(class="topbar-img img-fluid" src="/images/wave1.png" class="ms-3")
   if isAuthenticated   
-    form
+    form(class="w-25 w-100-sm")
       input(type="text" class="form-control mx-2" placeholder="Search" id="search-input")
       div(id="search-menu-container")
-  button(class="navbar-toggler me-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation")
+  button(class="navbar-toggler bg-light me-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation")
     span(class="navbar-toggler-icon")
   div(class="collapse navbar-collapse m-2 mx-auto" id="navbarNav")
-    ul(class="nav nav-pills nav-fill gap-2 p-1 small bg-dark rounded-5 shadow-sm text-light" id="pillNav2" role="tablist")
+    ul(class="nav nav-pills nav-fill gap-2 p-1 small bg-dark rounded-5 shadow-sm" id="pillNav2" role="tablist")
       if isAuthenticated
         li(class="nav-item" role="presentation")
-          a(class="nav-link active rounded-5 me-3" href="/waves/new" type="button" role="tab" aria-selected="true" style="background-color: #1f8a70; border-color: #1f8a70;") Wave
+          a(class="nav-link active bg-dark text-light rounded-5 me-3" href="/waves/all" type="button" role="tab" aria-selected="true") Home
         li(class="nav-item" role="presentation")
-          a(class="nav-link rounded-5 me-3" href="/waves/all" type="button" role="tab" aria-selected="true") Home
+          a(class="nav-link active bg-dark text-light rounded-5 me-3" href="/waves" type="button" role="tab" aria-selected="true") My Waves
         li(class="nav-item" role="presentation")
-          a(class="nav-link rounded-5 me-3" href="/waves" type="button" role="tab" aria-selected="true") My Waves
+          a(class="nav-link active bg-dark text-light rounded-5 me-3" href="/auth/signout" type="button" role="tab" aria-selected="false") Déconnexion
         li(class="nav-item" role="presentation")
-          a(class="nav-link" href="/auth/signout" type="button" role="tab" aria-selected="false") Déconnexion
+          a(class="nav-link active rounded-5" href="/waves/new" type="button" role="tab" aria-selected="true" style="background-color: #1f8a70; border-color: #1f8a70;") Wave  
       else
         li(class="nav-item" role="presentation")
-          a(class="nav-link rounded-5" href="/auth/signin/form" type="button" role="tab" aria-selected="false") Connexion
+          a(class="nav-link active bg-dark text-light rounded-5" href="/auth/signin/form" type="button" role="tab" aria-selected="false") Connexion
         li(class="nav-item" role="presentation")
-          a(class="nav-link rounded-5" href="/users/signup/form" type="button" role="tab" aria-selected="false") Inscription
+          a(class="nav-link active bg-dark text-light rounded-5" href="/users/signup/form" type="button" role="tab" aria-selected="false") Inscription

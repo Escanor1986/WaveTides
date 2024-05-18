@@ -4,14 +4,13 @@ if waves
       .row.no-gutters
         .col-md-4.wave-card-avatar-container.d-flex.flex-column.align-items-center.justify-content-center
           img.wave-card-avatar(src=wave.author.avatar, alt="Avatar")
-          h5.wave-card-title= wave.author.username
+          h5.wave-card-title.my-2= wave.author.username
         .col-md-8.wave-body-card
-          .card-body
-            p.wave-card-text= wave.content
-            .d-flex.align-items-center
-              if editable && wave.author._id.toString() === currentUser._id.toString()
-                a.btn.btn-success.mx-2(href=`/waves/edit/${wave._id}`) Edit
-                button.btn.btn-danger.mx-2.first-delete-button(type="button", data-bs-toggle="modal", data-bs-target="#deleteModal", waveid=wave._id) Delete
+          .wave-card-text.mb-4= wave.content
+          .d-flex.align-items-center.justify-content-center.mt-4
+            if editable && wave.author._id.toString() === currentUser._id.toString()
+              a.btn.btn-success.mx-2(href=`/waves/edit/${wave._id}`) Edit
+              button.btn.btn-danger.mx-2.first-delete-button(type="button", data-bs-toggle="modal", data-bs-target="#deleteModal", waveid=wave._id) Delete
 
   // Modal de confirmation de suppression
   div(class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true")

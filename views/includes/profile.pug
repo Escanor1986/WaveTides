@@ -16,12 +16,12 @@ div(class="profile-container align-items-center container-fluid shadow-sm rounde
       p.mb-0
         strong Wave
         br
-        span.text-primary= waves && waves.filter(t => t.author._id.toString() === user._id.toString()).length
+        span.text-light= waves && waves.filter(t => t.author._id.toString() === user._id.toString()).length
     .flex-fill
       p.mb-0
         strong Following
         br
-        span.text-primary= user.following.length
+        span.text-light= user.following.length
   if currentUser._id.toString() !== user._id.toString()
     div(class="d-flex flex-row justify-content-center w-100 mt-3 mt-md-0")
       if currentUser.following.map(objId => objId.toString()).includes(user._id.toString())

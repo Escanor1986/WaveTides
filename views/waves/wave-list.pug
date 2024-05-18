@@ -1,15 +1,17 @@
 if waves
   each wave, index in waves  
-    div(class=`card mb-3 ${index % 2 === 0 ? 'ms-auto' : 'me-auto'} wave-element`)
-      .card-avatar-container
-        img(class="card-avatar img-fluid", src=wave.author.avatar, alt="Avatar")
-        h5(class="card-title")= wave.author.username
-      .card-body
-        p(class="card-text")= wave.content
-        div(class="d-flex align-items-center")
-          if editable && wave.author._id.toString() === currentUser._id.toString()
-            a(class="btn btn-success mx-2", href=`/waves/edit/${wave._id}`) Edit
-            button(class="btn btn-danger mx-2 first-delete-button", type="button", data-bs-toggle="modal", data-bs-target="#deleteModal", waveid=wave._id) Delete
+    .wave-card.mb-3.card
+      .row.no-gutters
+        .col-md-4.wave-card-avatar-container.d-flex.flex-column.align-items-center.justify-content-center
+          img.wave-card-avatar(src=wave.author.avatar, alt="Avatar")
+          h5.wave-card-title= wave.author.username
+        .col-md-8.wave-body-card
+          .card-body
+            p.wave-card-text= wave.content
+            .d-flex.align-items-center
+              if editable && wave.author._id.toString() === currentUser._id.toString()
+                a.btn.btn-success.mx-2(href=`/waves/edit/${wave._id}`) Edit
+                button.btn.btn-danger.mx-2.first-delete-button(type="button", data-bs-toggle="modal", data-bs-target="#deleteModal", waveid=wave._id) Delete
 
   // Modal de confirmation de suppression
   div(class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true")

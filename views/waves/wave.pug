@@ -2,7 +2,9 @@ extends ../layout.pug
 
 block content
   script(src="/scripts/waves/wave.js")
-  div(class="d-flex wave-frame content mx-auto")
-    include ../includes/profile.pug
-    div(class="flex-fill d-flex flex-column" id="wave-list-container")
-      include wave-list.pug
+  .row.wave-frame
+    .col-md-4
+      include ../includes/profile.pug
+    .col-md-8
+      #wave-list-container
+        include wave-list.pug

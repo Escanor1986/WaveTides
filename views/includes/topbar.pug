@@ -1,5 +1,5 @@
 script(src="/scripts/search-bar.js")
-nav(class="navbar navbar-expand-lg navbar-light bg-light rounded-5 mt-3 shadow container-fluid")
+nav(class="navbar-container navbar navbar-expand-lg navbar-light bg-dark rounded-5 mt-3 shadow container-fluid")
   a(class="navbar-brand" href="/waves")
     img(class="topbar-img img-fluid" src="/images/wave1.png" class="ms-3")
   if isAuthenticated   
@@ -9,10 +9,10 @@ nav(class="navbar navbar-expand-lg navbar-light bg-light rounded-5 mt-3 shadow c
   button(class="navbar-toggler me-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation")
     span(class="navbar-toggler-icon")
   div(class="collapse navbar-collapse m-2 mx-auto" id="navbarNav")
-    ul(class="nav nav-pills nav-fill gap-2 p-1 small bg-primary rounded-5 shadow-sm" id="pillNav2" role="tablist" style="--bs-nav-link-color: var(--bs-white); --bs-nav-pills-link-active-color: var(--bs-primary); --bs-nav-pills-link-active-bg: var(--bs-white);")
+    ul(class="nav nav-pills nav-fill gap-2 p-1 small bg-dark rounded-5 shadow-sm text-light" id="pillNav2" role="tablist")
       if isAuthenticated
         li(class="nav-item" role="presentation")
-          a(class="nav-link active rounded-5 me-3" href="/waves/new" type="button" role="tab" aria-selected="true") Wave
+          a(class="nav-link active rounded-5 me-3" href="/waves/new" type="button" role="tab" aria-selected="true" style="background-color: #1f8a70; border-color: #1f8a70;") Wave
         li(class="nav-item" role="presentation")
           a(class="nav-link rounded-5 me-3" href="/waves/all" type="button" role="tab" aria-selected="true") Home
         li(class="nav-item" role="presentation")

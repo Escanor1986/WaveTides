@@ -1,4 +1,5 @@
 const passport = require("passport");
+const jwt = require("jsonwebtoken");
 
 exports.signinForm = (req, res, next) => {
   res.render("auth/auth-form", {
@@ -11,22 +12,30 @@ exports.signinForm = (req, res, next) => {
 exports.signin = (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) {
-      next(err);
-    } else if (!user) {
-      res.render("auth/auth-form", {
+      return next(err);
+    }
+    if (!user) {
+      return res.render("auth/auth-form", {
         errors: [info.message],
         isAuthenticated: req.isAuthenticated(),
         currentUser: req.user,
       });
-    } else {
-      req.login(user, err => {
-        if (err) {
-          next(err);
-        } else {
-          res.redirect("/waves");
-        }
-      });
     }
+    req.login(user, err => {
+      if (err) {
+        return next(err);
+      }
+      try {
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+          expiresIn: "24h",
+        });
+
+        res.cookie("jwt", token, { httpOnly: true, secure: true });
+        res.redirect("/waves");
+      } catch (e) {
+        return next(e);
+      }
+    });
   })(req, res, next);
 };
 

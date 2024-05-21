@@ -1,5 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
+const cookieParser = require("cookie-parser");
 const path = require("path");
 require("dotenv").config();
 const dotenv = require("dotenv");
@@ -18,6 +19,7 @@ exports.app = app;
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
+app.use(cookieParser());
 require("./config/session.config");
 require("./config/passport.config");
 

@@ -1,8 +1,5 @@
 const User = require("../database/models/user.model");
-const passwordSchema = require("../config/password.config");
-const emailValidator = require("email-validator");
 const MaskData = require("maskdata");
-
 const emailMask2Options = {
   maskWith: "*",
   unmaskedStartCharactersBeforeAt: 3,
@@ -12,17 +9,11 @@ const emailMask2Options = {
 
 exports.createUser = async user => {
   try {
-    if (!emailValidator.validate(user.email)) {
-      throw new Error("Invalid email format");
-    }
-
-    const { error: passwordError } = passwordSchema.validate(user.password);
-    if (passwordError) {
-      throw new Error("Password does not meet the required criteria");
-    }
-
+    // Hachage password
     const hashedPassword = await User.hashPassword(user.password);
+    // Masquage de l'email avec option
     const maskedEmail = MaskData.maskEmail2(user.email, emailMask2Options);
+    // Création du profil utilisateur destiné à la DB
     const newUser = new User({
       username: user.username,
       local: {
@@ -30,11 +21,10 @@ exports.createUser = async user => {
         password: hashedPassword,
       },
     });
-
+    // Sauvegarde de l'utilisateur dans la DB
     return await newUser.save();
   } catch (e) {
     console.error("Error creating user:", e.message);
-
     throw e;
   }
 };

@@ -6,6 +6,9 @@ require("dotenv").config();
 const LocalStrategy = require("passport-local").Strategy;
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const FacebookStrategy = require("passport-facebook").Strategy;
+const JwtStrategy = require("passport-jwt").Strategy;
+const ExtractJwt = require("passport-jwt").ExtractJwt;
+require("dotenv").config();
 const {
   findUserPerEmail,
   findUserPerId,
@@ -36,6 +39,7 @@ const emailMask2Options = {
   maskAtTheRate: false,
 };
 
+// Cette stratégie est utilisée pour la phase de connexion où l'utilisateur fournit son email et son mot de passe
 passport.use(
   "local",
   new LocalStrategy(
@@ -63,6 +67,35 @@ passport.use(
       }
     }
   )
+);
+
+const cookieExtractor = function (req) {
+  let token = null;
+  if (req && req.cookies) {
+    token = req.cookies["jwt"];
+  }
+  return token;
+};
+
+const opts = {
+  jwtFromRequest: cookieExtractor,
+  secretOrKey: process.env.JWT_SECRET,
+};
+
+//la stratégie JWT est utilisée pour protéger les routes après que l'utilisateur est authentifié
+passport.use(
+  new JwtStrategy(opts, async (jwt_payload, done) => {
+    try {
+      const user = await User.findById(jwt_payload.userId);
+      if (user) {
+        return done(null, user);
+      } else {
+        return done(null, false);
+      }
+    } catch (error) {
+      return done(error, false);
+    }
+  })
 );
 
 passport.use(

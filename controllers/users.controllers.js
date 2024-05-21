@@ -6,9 +6,11 @@ const {
   removeUserIdToCurrentUserFollowing,
   findUserPerId,
 } = require("../queries/users.queries");
+const path = require("path");
 const { getUserWavesFromAuthorId } = require("../queries/waves.queries");
 const { validationResult } = require("express-validator");
-const path = require("path");
+const passwordSchema = require("../config/password.config");
+const emailValidator = require("email-validator");
 const multer = require("multer");
 const date = new Date();
 
@@ -37,6 +39,21 @@ exports.signupForm = (req, res, next) => {
 exports.signup = async (req, res, next) => {
   const body = req.body;
   try {
+    // Vérification de la structure de l'adresse email
+    if (!emailValidator.validate(body.email)) {
+      throw new Error("Invalid email format");
+    }
+    // Création de l'objet contenant les détails de/des erreurs
+    const passwordValidationErrors = passwordSchema.validate(body.password, {
+      details: true,
+    });
+    // Vérification de la structure du password AVANT d'invoquer createUser
+    // Affichage des erreurs si besoin
+    if (passwordValidationErrors.length > 0) {
+      console.log(passwordValidationErrors);
+      throw new Error(passwordValidationErrors[0].message);
+    }
+
     const user = await createUser(body);
     res.redirect("/");
   } catch (e) {

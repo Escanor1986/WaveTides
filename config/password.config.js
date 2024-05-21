@@ -1,31 +1,24 @@
 const passwordValidator = require("password-validator");
 const passwordSchema = new passwordValidator();
 
+// Définition des règles de validation du mot de passe
 passwordSchema
   .is()
-  .min(10) // Minimum length 10
+  .min(10) // Longueur minimale de 10 caractères
   .is()
-  .max(100) // Maximum length 100
+  .max(100) // Longueur maximale de 100 caractères
   .has()
-  .uppercase() // Must have uppercase letters
+  .uppercase() // Doit contenir des lettres majuscules
   .has()
-  .lowercase() // Must have lowercase letters
+  .lowercase() // Doit contenir des lettres minuscules
   .has()
-  .digits(2) // Must have at least 2 digits
+  .digits(2) // Doit contenir au moins 2 chiffres
   .has()
   .not()
-  .spaces() // Should not have spaces
-  .oneOf(["Passw0rd", "Password123", "123456789", "iLoveYou", "Master"]) // liste noir des valeurs interdites
-  .is()
-  .not((value, { req, location, path }) => {
-    // Vérifie que le mot de passe ne contient pas d'informations sensibles
-    const username = req.body.username;
-    const email = req.body.email;
-    return (
-      value.includes(username) ||
-      value.includes(email) ||
-      value.toLowerCase().includes("password")
-    );
-  });
+  .spaces() // Ne doit pas contenir d'espaces
+  .has()
+  .symbols(2) // Doit contenir au moins 2 caractères spéciaux
+  .not()
+  .oneOf(["Passw0rd", "Password123", "123456789", "iLoveYou", "Master"]); // Valeurs interdites
 
 module.exports = passwordSchema;

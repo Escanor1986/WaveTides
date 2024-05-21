@@ -6,6 +6,7 @@ const {
   updateWave,
   getCurrentUserWavesWithFollowing,
 } = require("../queries/waves.queries");
+const sanitizeHTML = require("sanitize-html");
 
 exports.waveList = async (req, res, next) => {
   try {
@@ -46,15 +47,83 @@ exports.waveNew = (req, res, next) => {
   });
 };
 
+const sanitizeHtml = require("sanitize-html");
+
 exports.waveCreate = async (req, res, next) => {
   try {
     const body = req.body;
-    await createWave({ ...body, author: req.user._id });
+    console.log("Request body:", body);
+
+    // Configuration pour désinfecter le contenu HTML
+    const sanitizedContent = sanitizeHtml(body.content, {
+      allowedTags: [
+        "b",
+        "i",
+        "em",
+        "strong",
+        "a",
+        "ul",
+        "ol",
+        "li",
+        "p",
+        "textarea",
+      ],
+      allowedAttributes: {
+        a: ["href", "target"],
+      },
+      allowedIframeHostnames: [], // Aucun iframe autorisé
+      allowedSchemes: ["http", "https", "ftp", "mailto"], // Seuls ces schémas sont autorisés pour les liens
+      selfClosing: [
+        "br",
+        "img",
+        "hr",
+        "area",
+        "base",
+        "basefont",
+        "input",
+        "link",
+        "meta",
+      ], // Balises auto-fermantes autorisées
+      nonTextTags: ["style", "script", "textarea", "noscript"], // Balises non-textuelles autorisées
+      exclusiveFilter: frame => {
+        // Filtrer les éléments non autorisés
+        if (frame.tag === "a") {
+          // Vérifier que le lien est externe pour éviter les attaques de phishing
+          const href = frame.attribs.href;
+          if (
+            href &&
+            !href.startsWith("/") &&
+            !href.startsWith("#") &&
+            !href.startsWith("http://") &&
+            !href.startsWith("https://")
+          ) {
+            return {
+              tagName: "a",
+              attribs: {
+                href: "#", // Remplacer le lien externe par un lien interne
+                target: "_blank", // Ouvrir le lien dans une nouvelle fenêtre
+                rel: "noopener noreferrer", // Ajouter des attributs de sécurité pour les liens externes
+              },
+            };
+          }
+        }
+      },
+    });
+    console.log("Sanitized content:", sanitizedContent);
+
+    const waveData = {
+      ...body,
+      content: sanitizedContent,
+      author: req.user._id,
+    };
+    console.log("Wave data to be saved:", waveData);
+
+    await createWave(waveData);
     res.redirect("/waves");
   } catch (e) {
-    const errors = Object.keys(e.errors).map(key => e.errors[key].message);
+    console.error("Error creating wave:", e);
     res.status(400).render("waves/wave-form", {
-      errors,
+      errors: [e.message],
       isAuthenticated: req.isAuthenticated(),
       currentUser: req.user,
     });

@@ -55,7 +55,8 @@ exports.signup = async (req, res, next) => {
     }
 
     const user = await createUser(body);
-    res.redirect("/");
+    console.log(user);
+    res.render("auth/auth-form");
   } catch (e) {
     res.render("users/user-form", {
       errors: [e.message],

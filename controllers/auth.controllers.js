@@ -30,7 +30,11 @@ exports.signin = (req, res, next) => {
           expiresIn: "24h",
         });
 
-        res.cookie("jwt", token, { httpOnly: true, secure: true });
+        res.cookie("jwt", token, {
+          httpOnly: true, // Empêche l'accès par JavaScript côté client
+          secure: true, // Envoie uniquement sur HTTPS
+          sameSite: "Strict", // Empêche les requêtes intersites });
+        });
         res.redirect("/waves");
       } catch (e) {
         return next(e);

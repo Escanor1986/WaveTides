@@ -5,13 +5,19 @@ if waves
         .col-md-4.wave-card-avatar-container.d-flex.flex-column.align-items-center.justify-content-center
           img.wave-card-avatar(src=wave.author.avatar, alt="Avatar")
           h5.wave-card-title.my-2= wave.author.username
+          .d-flex.flex-row.align-items-center.justify-content-center.mt-4.mx-2
+            button.btn.btn-success.mx-2(type="button" id="like-button" waveid=wave._id)
+              i(class="fa-regular fa-thumbs-up")
+            button.btn.btn-danger.mx-2(type="button" id="dislike-button" waveid=wave._id)
+              i(class="fa-regular fa-thumbs-down")
         .col-md-8.wave-body-card
-          .wave-card-text.mb-4= wave.content
-          .d-flex.align-items-center.justify-content-center.mt-4
-            if editable && wave.author._id.toString() === currentUser._id.toString()
-              a.btn.btn-neon-blue.mx-2(href=`/waves/edit/${wave._id}`) Edit
-              button.btn.btn-neon-pink.mx-2.first-delete-button(type="button", data-bs-toggle="modal", data-bs-target="#deleteModal", waveid=wave._id) Delete
-              
+          .d-flex.flex-column.justify-content-between.align-items-center
+           .wave-card-text.mb-4= wave.content
+           .d-flex.flex-row.align-items-center.justify-content-between.mt-4.mx-2
+             if editable && wave.author._id.toString() === currentUser._id.toString()
+                 a.btn.btn-neon-blue.m-2(href=`/waves/edit/${wave._id}`) Edit
+                 button.btn.btn-neon-pink.m-2.first-delete-button(type="button", data-bs-toggle="modal", data-bs-target="#deleteModal", waveid=wave._id) Delete
+
   // Modal de confirmation de suppression
   div(class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true")
     div(class="modal-dialog modal-dialog-centered" role="document")

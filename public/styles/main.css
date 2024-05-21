@@ -65,6 +65,34 @@ label {
   text-align: center;
 }
 
+/* Boutons Like et Dislike */
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+  color: white;
+}
+
+.btn-success:hover,
+.btn-success:focus {
+  background-color: #218838;
+  border-color: #1e7e34;
+  color: white;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: white;
+}
+
+.btn-danger:hover,
+.btn-danger:focus {
+  background-color: #c82333;
+  border-color: #bd2130;
+  color: white;
+}
+
+/* Boutons edit et delete */
 .btn-neon-blue {
   background-color: #00ccff;
   border-color: #00ccff;

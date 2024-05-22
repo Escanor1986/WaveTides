@@ -71,8 +71,18 @@ exports.uploadImage = [
   async (req, res, next) => {
     try {
       const user = req.user;
+
+      if (!user) {
+        return res.status(400).json({ error: "User not authenticated" });
+      }
+
+      if (!req.file) {
+        return res.status(400).json({ error: "No file uploaded" });
+      }
+
       user.avatar = `/images/avatars/${req.file.filename}`;
       await user.save();
+
       res.redirect("/");
     } catch (e) {
       next(e);

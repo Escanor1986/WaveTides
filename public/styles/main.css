@@ -237,6 +237,23 @@ label {
   color: #1f8a70; /* Vert samouraï */
 }
 
+.styled-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+}
+
+.styled-link:hover {
+  color: #ffcc00;
+  border-bottom: 2px solid #ffcc00;
+  text-decoration: none;
+}
+
+.styled-link:active {
+  color: #ffaa00;
+}
+
 @media (max-width: 768px) {
   .profile-container {
     flex-direction: row;

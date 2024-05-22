@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "argon2": "^0.40.1",
     "autoprefixer": "^10.4.19",
     "axios": "^1.6.8",
     "bcrypt": "^5.1.1",

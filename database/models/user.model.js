@@ -1,31 +1,39 @@
 const mongoose = require("mongoose");
 const schema = mongoose.Schema;
 require("dotenv").config();
-const bcrypt = require("bcrypt");
+const argon2 = require("argon2");
 
-// Création de variable d'environnement pour augmenter la robustesse du hachage du password
 const pepper = process.env.PEPPER_SECRET;
 const uniqueSalt = process.env.UNIQUE_SALT;
 
-const userSchema = schema({
-  username: { type: String, required: true, unique: true },
-  local: {
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    googleId: { type: String },
-    facebookId: { type: String },
+const userSchema = schema(
+  {
+    username: { type: String, required: true, unique: true },
+    local: {
+      email: { type: String, required: true, unique: true },
+      password: { type: String, required: true },
+      googleId: { type: String },
+      facebookId: { type: String },
+    },
+    avatar: { type: String, default: "/images/wave.png" },
+    following: { type: [schema.Types.ObjectId], ref: "user" },
   },
-  avatar: { type: String, default: "/images/wave.png" },
-  following: { type: [schema.Types.ObjectId], ref: "user" },
-});
+  {
+    timestamps: true,
+  }
+);
 
-// Méthode statique pour hasher le mot de passe avec salt et pepper
+// Méthode statique pour hasher le mot de passe avec Argon2, un unique salt et un pepper
 userSchema.statics.hashPassword = async function (password) {
   try {
-    const saltRounds = 12;
-    const salt = await bcrypt.genSalt(saltRounds);
     const pepperAndSaltPassword = uniqueSalt + password + pepper;
-    const hashedPassword = await bcrypt.hash(pepperAndSaltPassword, salt);
+    // le salt est généré automatiquement par argon2 (contrairement à bcrypt)
+    const hashedPassword = await argon2.hash(pepperAndSaltPassword, {
+      type: argon2.argon2id,
+      memoryCost: 2 ** 16, // 64 MB
+      timeCost: 4,
+      parallelism: 2,
+    });
     return hashedPassword;
   } catch (error) {
     console.error("Error hashing password:", error);
@@ -37,7 +45,7 @@ userSchema.statics.hashPassword = async function (password) {
 userSchema.methods.comparePassword = async function (password) {
   try {
     const pepperAndSaltPassword = uniqueSalt + password + pepper;
-    return await bcrypt.compare(pepperAndSaltPassword, this.local.password);
+    return await argon2.verify(this.local.password, pepperAndSaltPassword);
   } catch (error) {
     console.error("Error comparing password:", error);
     throw new Error("Error comparing password");

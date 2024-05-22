@@ -17,6 +17,10 @@ exports.getWave = async waveId => {
   return await Wave.findOne({ _id: waveId }).populate("author").exec();
 };
 
+exports.getWaveForLike = async waveId => {
+  return await Wave.findById(waveId);
+};
+
 exports.updateWave = async (waveId, wave) => {
   return await Wave.findByIdAndUpdate(
     waveId,

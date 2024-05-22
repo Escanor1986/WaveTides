@@ -9,11 +9,11 @@ const waveSchema = schema(
       minlength: [1, "Wave trop courte."],
       required: [true, "Champs requis"],
     },
-    author: { type: schema.Types.ObjectId, ref: "user", required: true }, // key "ref: 'user'" qui nous permet d'utiliser .populate('author')
-    likes: { type: Number },
-    dislikes: { type: Number },
-    usersLiked: { type: [String] },
-    usersDisliked: { type: [String] },
+    author: { type: schema.Types.ObjectId, ref: "user", required: true },
+    likes: { type: Number, default: 0 },
+    dislikes: { type: Number, default: 0 },
+    usersLiked: { type: [String], default: [] },
+    usersDisliked: { type: [String], default: [] },
   },
   {
     timestamps: true,

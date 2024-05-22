@@ -7,6 +7,8 @@ const {
   waveDelete,
   waveEdit,
   waveUpdate,
+  waveLike,
+  waveDislike,
 } = require("../controllers/waves.controllers");
 
 router.get("/", waveList);
@@ -16,5 +18,7 @@ router.post("/", waveCreate);
 router.get("/edit/:waveId", waveEdit);
 router.post("/update/:waveId", waveUpdate);
 router.delete("/:waveId", waveDelete);
+router.post("/:waveId/like", waveLike);
+router.post("/:waveId/dislike", waveDislike);
 
 module.exports = router;

@@ -1,12 +1,13 @@
 const {
   getWave,
+  getWaveForLike,
   getWaves,
   createWave,
   deleteWave,
   updateWave,
   getCurrentUserWavesWithFollowing,
 } = require("../queries/waves.queries");
-const sanitizeHTML = require("sanitize-html");
+const sanitizeHtml = require("sanitize-html");
 
 exports.waveList = async (req, res, next) => {
   try {
@@ -46,8 +47,6 @@ exports.waveNew = (req, res, next) => {
     currentUser: req.user,
   });
 };
-
-const sanitizeHtml = require("sanitize-html");
 
 exports.waveCreate = async (req, res, next) => {
   try {
@@ -176,5 +175,85 @@ exports.waveUpdate = async (req, res, next) => {
       isAuthenticated: req.isAuthenticated(),
       currentUser: req.user,
     });
+  }
+};
+
+exports.waveLike = async (req, res, next) => {
+  try {
+    const waveId = req.params.waveId;
+    const wave = await getWaveForLike(waveId);
+    if (!wave) {
+      return res.status(404).send("Wave not found");
+    }
+
+    if (wave.author.toString() === req.user._id.toString()) {
+      return res.status(400).send("You cannot like your own wave");
+    }
+
+    const userId = req.user._id.toString();
+    if (wave.usersLiked.includes(userId)) {
+      wave.likes -= 1;
+      wave.usersLiked = wave.usersLiked.filter(id => id !== userId);
+    } else {
+      if (wave.usersDisliked.includes(userId)) {
+        wave.dislikes -= 1;
+        wave.usersDisliked = wave.usersDisliked.filter(id => id !== userId);
+      }
+      wave.likes += 1;
+      wave.usersLiked.push(userId);
+    }
+
+    await wave.save();
+    const waves = await getCurrentUserWavesWithFollowing(req.user);
+    res.status(200).render("waves/wave", {
+      waves,
+      isAuthenticated: req.isAuthenticated(),
+      currentUser: req.user,
+      user: req.user,
+      editable: true,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+};
+
+exports.waveDislike = async (req, res, next) => {
+  try {
+    const waveId = req.params.waveId;
+    const wave = await getWave(waveId);
+    if (!wave) {
+      return res.status(404).send("Wave not found");
+    }
+
+    if (wave.author.toString() === req.user._id.toString()) {
+      return res.status(400).send("You cannot dislike your own wave");
+    }
+
+    const userId = req.user._id.toString();
+    if (wave.usersDisliked.includes(userId)) {
+      wave.dislikes -= 1;
+      wave.usersDisliked = wave.usersDisliked.filter(id => id !== userId);
+    } else {
+      if (wave.usersLiked.includes(userId)) {
+        wave.likes -= 1;
+        wave.usersLiked = wave.usersLiked.filter(id => id !== userId);
+      }
+      wave.dislikes += 1;
+      wave.usersDisliked.push(userId);
+    }
+
+    await wave.save();
+    const waves = await getCurrentUserWavesWithFollowing(req.user);
+    res.status(200).render("waves/wave", {
+      waves,
+      isAuthenticated: req.isAuthenticated(),
+      currentUser: req.user,
+      user: req.user,
+      editable: true,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
   }
 };

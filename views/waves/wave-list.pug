@@ -1,3 +1,4 @@
+script(src="/scripts/waves/likeDislikeWave.js")
 if waves
   each wave, index in waves  
     .wave-card.mb-3.card
@@ -6,10 +7,12 @@ if waves
           img.wave-card-avatar(src=wave.author.avatar, alt="Avatar")
           h5.wave-card-title.my-2= wave.author.username
           .d-flex.flex-row.align-items-center.justify-content-center.mt-4.mx-2
-            button.btn.btn-success.mx-2(type="button" id="like-button" waveid=wave._id)
+            button.btn.btn-success.mx-2(type="button" data-action="like" data-waveid=wave._id data-waveauthorid=wave.author._id)
               i(class="fa-regular fa-thumbs-up")
-            button.btn.btn-danger.mx-2(type="button" id="dislike-button" waveid=wave._id)
+            span.likes-count= wave.likes || 0
+            button.btn.btn-danger.mx-2(type="button" data-action="dislike" data-waveid=wave._id data-waveauthorid=wave.author._id)
               i(class="fa-regular fa-thumbs-down")
+            span.dislikes-count= wave.dislikes || 0
         .col-md-8.wave-body-card
           .d-flex.flex-column.justify-content-between.align-items-center
            .wave-card-text.mb-4= wave.content

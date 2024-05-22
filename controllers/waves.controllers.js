@@ -181,13 +181,13 @@ exports.waveUpdate = async (req, res, next) => {
 exports.waveLike = async (req, res, next) => {
   try {
     const waveId = req.params.waveId;
-    const wave = await getWaveForLike(waveId);
+    const wave = await getWave(waveId);
     if (!wave) {
-      return res.status(404).send("Wave not found");
+      return res.status(404).json({ error: "Wave not found" });
     }
 
-    if (wave.author.toString() === req.user._id.toString()) {
-      return res.status(400).send("You cannot like your own wave");
+    if (wave.author._id.toString() === req.user._id.toString()) {
+      return res.status(400).json({ error: "You cannot like your own wave" });
     }
 
     const userId = req.user._id.toString();
@@ -204,17 +204,10 @@ exports.waveLike = async (req, res, next) => {
     }
 
     await wave.save();
-    const waves = await getCurrentUserWavesWithFollowing(req.user);
-    res.status(200).render("waves/wave", {
-      waves,
-      isAuthenticated: req.isAuthenticated(),
-      currentUser: req.user,
-      user: req.user,
-      editable: true,
-    });
+    res.status(200).json({ likes: wave.likes, dislikes: wave.dislikes });
   } catch (error) {
     console.error(error);
-    res.status(500).send("Server error");
+    res.status(500).json({ error: "Server error" });
   }
 };
 
@@ -223,11 +216,13 @@ exports.waveDislike = async (req, res, next) => {
     const waveId = req.params.waveId;
     const wave = await getWave(waveId);
     if (!wave) {
-      return res.status(404).send("Wave not found");
+      return res.status(404).json({ error: "Wave not found" });
     }
 
-    if (wave.author.toString() === req.user._id.toString()) {
-      return res.status(400).send("You cannot dislike your own wave");
+    if (wave.author._id.toString() === req.user._id.toString()) {
+      return res
+        .status(400)
+        .json({ error: "You cannot dislike your own wave" });
     }
 
     const userId = req.user._id.toString();
@@ -244,16 +239,9 @@ exports.waveDislike = async (req, res, next) => {
     }
 
     await wave.save();
-    const waves = await getCurrentUserWavesWithFollowing(req.user);
-    res.status(200).render("waves/wave", {
-      waves,
-      isAuthenticated: req.isAuthenticated(),
-      currentUser: req.user,
-      user: req.user,
-      editable: true,
-    });
+    res.status(200).json({ likes: wave.likes, dislikes: wave.dislikes });
   } catch (error) {
     console.error(error);
-    res.status(500).send("Server error");
+    res.status(500).json({ error: "Server error" });
   }
 };

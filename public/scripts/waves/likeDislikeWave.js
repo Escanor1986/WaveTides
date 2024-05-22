@@ -1,7 +1,7 @@
 window.addEventListener("DOMContentLoaded", () => {
   const buttons = document.querySelectorAll("button[data-action]");
 
-  function updateWaveCount(waveId, action, newCounts) {
+  function updateWaveCount(waveId, newCounts) {
     const waveCard = document
       .querySelector(`button[data-waveid="${waveId}"]`)
       .closest(".wave-card");
@@ -13,7 +13,7 @@ window.addEventListener("DOMContentLoaded", () => {
     axios
       .post(`/waves/${waveId}/${action}`)
       .then(response => {
-        updateWaveCount(waveId, action, response.data);
+        updateWaveCount(waveId, response.data);
       })
       .catch(error => {
         console.error(error);

@@ -4,8 +4,9 @@ if waves
     .wave-card.mb-3.card
       .row.no-gutters
         .col-md-4.wave-card-avatar-container.d-flex.flex-column.align-items-center.justify-content-center
-          img.wave-card-avatar(src=wave.author.avatar, alt="Avatar")
-          h5.wave-card-title.my-2= wave.author.username
+          a(href="/users/" + wave.author.username)
+            img.wave-card-avatar(src=wave.author.avatar, alt="Avatar" )
+            h5.wave-card-title.my-2= wave.author.username
           .d-flex.flex-row.align-items-center.justify-content-center.mt-4.mx-2
             button.btn.btn-success.mx-2(type="button" data-action="like" data-waveid=wave._id data-waveauthorid=wave.author._id)
               i(class="fa-regular fa-thumbs-up")

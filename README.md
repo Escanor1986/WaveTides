@@ -2,7 +2,7 @@
 
 WaveTides est une application web inspirée de Twitter, offrant une expérience de microblogging moderne et dynamique. Cette application a été construite avec Node.js, Express, Pug et Bootstrap 5 pour fournir une plateforme interactive et conviviale où les utilisateurs peuvent partager leurs pensées, suivre d'autres utilisateurs et découvrir du contenu pertinent.
 
-## Fonctionnalités clés
+## Fonctionnalités clés :
 
 - **Création de publications** : Les utilisateurs peuvent créer et publier des messages courts pour partager leurs pensées, leurs opinions et leurs actualités avec le monde.
 - **Fil d'actualité personnalisé** : Un fil d'actualité dynamique permet aux utilisateurs de découvrir du contenu pertinent basé sur leurs intérêts et leurs abonnements.

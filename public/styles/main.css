@@ -11,9 +11,8 @@
 
 body {
   max-width: 1500px;
-  /* min-width: 400px; */
   box-sizing: border-box;
-  margin: 2%;
+  margin: 2% auto;
   background-color: #0d1b2a; /* Bleu nuit */
   color: #e0e0e0; /* Texte clair pour contraste */
 }
@@ -54,6 +53,10 @@ label {
   object-fit: cover;
   max-width: 125px;
   max-height: 125px;
+}
+
+.wave-card-avatar-container {
+  justify-content: center;
 }
 
 .col-md-8 {
@@ -255,6 +258,19 @@ label {
 }
 
 @media (max-width: 768px) {
+  .wave-card .row.no-gutters {
+    flex-direction: column;
+  }
+  .wave-card-avatar-container {
+    flex-direction: row !important;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+
   .profile-container {
     flex-direction: row;
     align-items: center;

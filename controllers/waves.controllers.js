@@ -1,6 +1,5 @@
 const {
   getWave,
-  getWaveForLike,
   getWaves,
   createWave,
   deleteWave,

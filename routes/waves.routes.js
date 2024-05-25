@@ -10,15 +10,17 @@ const {
   waveLike,
   waveDislike,
 } = require("../controllers/waves.controllers");
+const passport = require("passport");
+const jwtToken = passport.authenticate("jwt", { session: false });
 
 router.get("/", waveList);
-router.get("/all", allWaves); // Nouvelle route pour toutes les waves
-router.get("/new", waveNew);
-router.post("/", waveCreate);
-router.get("/edit/:waveId", waveEdit);
-router.post("/update/:waveId", waveUpdate);
-router.delete("/:waveId", waveDelete);
-router.post("/:waveId/like", waveLike);
-router.post("/:waveId/dislike", waveDislike);
+router.get("/all", jwtToken, allWaves); // Nouvelle route pour toutes les waves
+router.get("/new", jwtToken, waveNew);
+router.post("/", jwtToken, waveCreate);
+router.get("/edit/:waveId", jwtToken, waveEdit);
+router.post("/update/:waveId", jwtToken, waveUpdate);
+router.delete("/:waveId", jwtToken, waveDelete);
+router.post("/:waveId/like", jwtToken, waveLike);
+router.post("/:waveId/dislike", jwtToken, waveDislike);
 
 module.exports = router;

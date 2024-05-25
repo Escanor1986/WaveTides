@@ -1,5 +1,5 @@
 const express = require("express");
-const morgan = require("morgan");
+// const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const path = require("path");
 require("dotenv").config();
@@ -26,7 +26,7 @@ require("./config/passport.config");
 const helmetConfig = require("./config/helmet.config");
 app.use(helmetConfig());
 
-app.use(morgan("short"));
+// app.use(morgan("short"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

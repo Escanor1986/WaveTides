@@ -50,7 +50,6 @@ exports.waveNew = (req, res, next) => {
 exports.waveCreate = async (req, res, next) => {
   try {
     const body = req.body;
-    console.log("Request body:", body);
 
     // Configuration pour désinfecter le contenu HTML
     const sanitizedContent = sanitizeHtml(body.content, {
@@ -107,14 +106,12 @@ exports.waveCreate = async (req, res, next) => {
         }
       },
     });
-    console.log("Sanitized content:", sanitizedContent);
 
     const waveData = {
       ...body,
       content: sanitizedContent,
       author: req.user._id,
     };
-    console.log("Wave data to be saved:", waveData);
 
     await createWave(waveData);
     res.redirect("/waves");

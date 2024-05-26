@@ -50,12 +50,10 @@ exports.signup = async (req, res, next) => {
     // Vérification de la structure du password AVANT d'invoquer createUser
     // Affichage des erreurs si besoin
     if (passwordValidationErrors.length > 0) {
-      console.log(passwordValidationErrors);
       throw new Error(passwordValidationErrors[0].message);
     }
 
     const user = await createUser(body);
-    console.log(user);
     res.render("auth/auth-form");
   } catch (e) {
     res.render("users/user-form", {
